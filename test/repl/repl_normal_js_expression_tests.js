@@ -1,10 +1,10 @@
 const co = require('co'),
-  vm = require('vm'),
-  MongoClient = require('mongodb').MongoClient,
-  REPL = require('../../lib/repl'),
-  EventEmitter = require('events').EventEmitter,
-  Db = require('../../lib/db'),
-  assert = require('assert');
+      vm = require('vm'),
+      MongoClient = require('mongodb').MongoClient,
+      REPL = require('../../lib/repl'),
+      EventEmitter = require('events').EventEmitter,
+      Db = require('../../lib/db'),
+      assert = require('assert');
 
 let client = null;
 
@@ -18,12 +18,12 @@ before((done) => {
     // Finish setup
     done();
   }).catch((err) => {
-    console.log(err.stack)
+    console.log(err.stack);
   });
 });
 
 after(function() {
-  if(client) client.close();
+  if (client) client.close();
 });
 
 
@@ -34,14 +34,14 @@ describe('Repl JS Expressions tests', () => {
         // Init context
         const initContext = Object.assign({}, global, {});
         // Create a context for execution
-        var context = Object.assign(vm.createContext(initContext), {
+        let context = Object.assign(vm.createContext(initContext), {
           db: Db.proxy(client.s.databaseName, client),
-          require: require,
+          require: require
         });
 
         // Create a repl instance
         const repl = new REPL(client, context, {
-          prompt: '',
+          prompt: ''
         });
         // Start the repl
         const _repl = repl.start();
@@ -55,7 +55,7 @@ describe('Repl JS Expressions tests', () => {
           string = string.replace(/\n|\\n/g, '');
 
           assert.equal(
-            `1`.trim(),
+            '1'.trim(),
             string.trim());
           done();
         });
@@ -69,14 +69,14 @@ describe('Repl JS Expressions tests', () => {
         // Init context
         const initContext = Object.assign({}, global, {});
         // Create a context for execution
-        var context = Object.assign(vm.createContext(initContext), {
+        let context = Object.assign(vm.createContext(initContext), {
           db: Db.proxy(client.s.databaseName, client),
-          require: require,
+          require: require
         });
 
         // Create a repl instance
         const repl = new REPL(client, context, {
-          prompt: '',
+          prompt: ''
         });
         // Start the repl
         const _repl = repl.start();
@@ -90,7 +90,7 @@ describe('Repl JS Expressions tests', () => {
           string = string.replace(/\n|\\n/g, '');
 
           assert.equal(
-            `2`.trim(),
+            '2'.trim(),
             string.trim());
           done();
         });
